@@ -1,0 +1,35 @@
+test: [1,2,3,4]
+LOG:
+  logging:
+    disable_existing_loggers: false
+    formatters:
+      basic:
+        datefmt: '%Y-%m-%d %H:%M:%S'
+        format: '%(asctime)s:%(module)s:%(levelname)s:%(message)s'
+      json:
+        (): log_util.JSONFormatter
+        fields:
+          level_name: INFO
+          engineId: test
+          logtime: asctime
+    handlers:
+      console:
+        class: logging.StreamHandler
+        formatter: basic
+        level: DEBUG
+      file_debug:
+        backupCount: 0
+        class: logging.handlers.TimedRotatingFileHandler
+        filename: C:\Users\suyeon\util\pythonProject\util\test.log
+        formatter: json
+        interval: 1
+        level: DEBUG
+        when: H
+    loggers:
+      base:
+        handlers:
+        - console
+        - file_debug
+        level: DEBUG
+        propagate: true
+    version: 1
